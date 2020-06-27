@@ -1,4 +1,4 @@
 node_modules
 *.css.map
-*.json
+emojis.json
 .env
