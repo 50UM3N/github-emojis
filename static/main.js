@@ -1,21 +1,16 @@
-var sec, btn;
+var sec, btn, now = 1;;
 
-fetch('/emojis').then(res => { return res.json() }).then(data => { console.log(data); setEmojis(data) })
-
+fetch('/emojis').then(res => { return res.json() }).then(data => { setEmojis(data) })
 
 function setEmojis(data) {
     var flag = 0
     var container = document.querySelector('.group')
     data.forEach(e1 => {
-        //var h2 = document.createElement('h2')
-        //h2.setAttribute('class', 'sub-group-name')
         var subgroup = document.createElement('div')
-        subgroup.setAttribute('class', `subgroup ${!flag ? 'active' : ''}`)
+        subgroup.setAttribute('class', `subgroup ${!flag ? 'active' : ''} `)
         flag = 1
         var emoji_box = document.createElement('div')
         emoji_box.setAttribute('class', 'emoji-box')
-        //h2.innerHTML = e1.group
-        //subgroup.appendChild(h2)
         e1.sub_group.forEach(e2 => {
             if (!e2.emojis) return
             e2.emojis.forEach(e3 => {
@@ -27,44 +22,59 @@ function setEmojis(data) {
                 e.appendChild(img)
                 subgroup.appendChild(e)
             })
-
         })
-        if (subgroup.innerHTML != '') {
-            //subgroup.appendChild(emoji_box)
-            container.appendChild(subgroup)
-        }
-
+        if (subgroup.innerHTML != '') { container.appendChild(subgroup) }
     });
-    sec = document.querySelectorAll('.subgroup');
-    btn = document.querySelectorAll('.show-emoji')
-    const emojis = document.querySelectorAll('.emojis')
+    setTabs(document.querySelectorAll('.subgroup'), document.querySelectorAll('.show-emoji'))
+    setEventListener(document.querySelectorAll('.emojis'))
+}
+
+function setEventListener(emojis) {
     emojis.forEach(emoji => {
         emoji.addEventListener('click', e => {
-            var text = emoji.getAttribute('emoji-name');
-            navigator.clipboard.writeText(text).then(function () {
-                console.log('Async: Copying to clipboard was successful!');
-            }, function (err) {
-                console.error('Async: Could not copy text: ', err);
-            });
-            emoji.style.setProperty('--tooltip-content', '"copied"');
+            const target = emoji.cloneNode(true)
+            addToRecent(target, sec[0])
+            const text = emoji.getAttribute('emoji-name')
+            navigator.clipboard.writeText(text)
+            emoji.style.setProperty('--tooltip-content', '"copied"')
         })
         emoji.addEventListener('mouseout', e => {
-            emoji.style.setProperty('--tooltip-content', '"copy"');
+            emoji.style.setProperty('--tooltip-content', '"copy"')
         })
     })
-    console.log(sec[0])
 }
-var now = 0;
+
+function setTabs(section, button) {
+    sec = section
+    btn = button
+}
+
+function addToRecent(target, container) {
+    let flag = 0;
+    container.childNodes.forEach(e => { if (e.getAttribute('emoji-name') == target.getAttribute('emoji-name')) flag = 1 })
+    if (flag) { return }
+    target.addEventListener('click', e => {
+        const text = target.getAttribute('emoji-name')
+        navigator.clipboard.writeText(text)
+        target.style.setProperty('--tooltip-content', '"copied"')
+    })
+    target.addEventListener('mouseout', e => {
+        target.style.setProperty('--tooltip-content', '"copy"')
+    })
+    container.appendChild(target)
+}
+
 function clk(e) {
-    console.log('a')
     remove(now);
     now = Number(e.slice(1));
     add(now);
 }
+
 function add(e) {
     sec[e].classList.add('active')
     btn[e].classList.add('button-active')
 }
+
 function remove(e) {
     sec[e].classList.remove('active')
     btn[e].classList.remove('button-active')
