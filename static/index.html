@@ -12,6 +12,11 @@
 </head>
 
 <body>
+    <div class="emoji-search-box-container">
+        <input onfocus="showBox()" type="text" id="emoji-input" placeholder="Search">
+    </div>
+    <div class="result-box-container"></div>
+
     <div class="emojis-container-box">
         <div class="head">
             <h2>GitHub Emojis - Click the emoji to copy the value</h2>
@@ -148,7 +153,7 @@
             </svg>
         </a>
     </div>
-    <script src="main.js"></script>
+    <script defer src="main.js"></script>
 </body>
 
 </html>

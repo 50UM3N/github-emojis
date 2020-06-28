@@ -7,5 +7,6 @@ app.use(express.static('static'))
 app.use(express.json())
 
 app.get('/emojis', routes)
+app.get('/type/:id', routes)
 
 app.listen(PORT, e => { console.log('Server started on port ' + PORT) })

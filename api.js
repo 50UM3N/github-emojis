@@ -46,11 +46,12 @@ function makeCategorizedObject(html, emoji) {
         }
         else if (tr.firstChild.name == 'td') {
             const code = tr.children[2].firstChild.attribs.name.replace(/_200d/g, "").replace(/_fe0f/g, "").replace(/_fe00/g, "").replace(/_/g, '-') //need to review
+            const keyword = tr.children[8].firstChild.data.replace(/\s/g, '').split('|')
             if (emoji[code] != undefined) {
                 const key = emoji[code].name
                 const value = emoji[code].url
                 delete emoji[code]
-                c.push({ name: key, url: value })
+                c.push({ name: key, url: value, keyword: keyword })
                 a[a.length - 1].sub_group[a[a.length - 1].sub_group.length - 1].emojis = c
             }
         }

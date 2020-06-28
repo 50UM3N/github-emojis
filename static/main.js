@@ -1,5 +1,55 @@
 var sec, btn, now = 1;;
 
+const input = document.getElementById('emoji-input')
+input.addEventListener('input', e => {
+    deleteBox()
+    if (!input.value) { return }
+    const value = input.value.replace(/\s/g, '')
+    fetch(`/type/${value}`).then(res => { return res.json() }).then(data => setDataToSearchBox(data))
+})
+
+function setDataToSearchBox(data) {
+    const box = document.querySelector('.result-box-container')
+    const emojiBox = document.createElement('div')
+    emojiBox.setAttribute('class', 'result-container')
+    data.forEach(d => {
+        const ej = document.createElement('div')
+        ej.setAttribute('class', 'emojis')
+        ej.setAttribute('emoji-name', `:${d.name}:`)
+        const img = document.createElement('img')
+        img.setAttribute('src', d.url)
+        ej.appendChild(img)
+        emojiBox.appendChild(ej)
+        ej.addEventListener('mousedown', e => {
+            const text = ej.getAttribute('emoji-name')
+            navigator.clipboard.writeText(text)
+            ej.style.setProperty('--tooltip-content', '"copied"')
+        })
+        ej.addEventListener('mouseout', e => {
+            ej.style.setProperty('--tooltip-content', '"copy"')
+        })
+    })
+    box.appendChild(emojiBox)
+}
+
+function deleteBox() {
+    const box = document.querySelector('.result-container')
+    if (box != null) box.remove()
+}
+
+document.addEventListener('mousedown', e => {
+    const t1 = document.getElementById('emoji-input')
+    const t2 = document.querySelector('.result-box-container')
+    const t3 = document.querySelector('.result-container')
+    const t4 = document.querySelectorAll('.e15')
+    if (e.target != t1 && e.target != t2 && e.target != t3 && e.target != t4) {
+        t2.classList.remove('result-box-container-visible')
+    }
+
+})
+
+function showBox() { document.querySelector('.result-box-container').classList.add('result-box-container-visible') }
+
 fetch('/emojis').then(res => { return res.json() }).then(data => { setEmojis(data) })
 
 function setEmojis(data) {
@@ -31,7 +81,7 @@ function setEmojis(data) {
 
 function setEventListener(emojis) {
     emojis.forEach(emoji => {
-        emoji.addEventListener('click', e => {
+        emoji.addEventListener('mousedown', e => {
             const target = emoji.cloneNode(true)
             addToRecent(target, sec[0])
             const text = emoji.getAttribute('emoji-name')

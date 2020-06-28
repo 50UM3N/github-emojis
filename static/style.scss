@@ -27,6 +27,120 @@ body {
     font-family: "Nunito", sans-serif;
     background-color: #001233;
 }
+.emojis {
+    float: left;
+    position: relative;
+    margin: 0.5rem;
+    width: 45px;
+    z-index: 1;
+    img {
+        width: 45px;
+        pointer-events: none;
+        transition: all 0.2s;
+    }
+    &::before {
+        opacity: 0;
+        visibility: hidden;
+        position: absolute;
+        content: var(--tooltip-content);
+        color: #eef4ed;
+        font-size: 0.75rem;
+        text-align: center;
+        top: -5px;
+        width: 50px;
+        padding: 5px 0px;
+        background-color: #33415cea;
+        left: 50%;
+        transform: translate(-50%, 50%) scale(0.5);
+        z-index: 1;
+        border-radius: 0.25rem;
+        transition: all 0.3s;
+    }
+    &::after {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        content: "";
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background-color: #33415cea;
+        top: 16px;
+        left: 50%;
+        clip-path: polygon(50% 50%, 100% 50%, 50% 100%, 0% 50%);
+        transform: translate(-50%, 50%) scale(0.5);
+        z-index: 0;
+        transition: all 0.3s;
+    }
+    &:hover img {
+        transform: scale(1.1);
+    }
+    &:hover::before,
+    &:hover::after {
+        opacity: 1;
+        visibility: visible;
+        transform: translate(-50%, 0%) scale(1);
+    }
+}
+.emoji-search-box-container {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 20px #090033;
+    border-radius: 0.25rem;
+    input {
+        height: 38px;
+        font-family: "Nunito", sans-serif;
+        font-weight: 600;
+        width: 540px;
+        padding: 0rem 2rem 0rem 0.75rem;
+        border: 1px solid #0b2545;
+        border-radius: 0.25rem;
+        background-color: #13315c;
+        outline: none;
+        color: #eef4ed;
+        &:focus {
+            border: 1.5px solid #0073ff;
+        }
+    }
+    ::placeholder {
+        color: rgb(184, 184, 184);
+    }
+}
+.result-box-container {
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+    position: absolute;
+    width: 540px;
+    height: 68px;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    background-color: #13315c;
+    border: 1px solid #024699;
+    border-radius: 0.25rem;
+    display: flex;
+    padding: 5px 45px;
+    box-shadow: 0 0 20px #090033;
+    transition: all 0.3s ease;
+    .result-container {
+        .emojis {
+            width: 40px;
+            height: 40px;
+            img {
+                width: 40px;
+            }
+        }
+    }
+}
+.result-box-container-visible {
+    opacity: 1;
+    pointer-events: all;
+    visibility: visible;
+}
 .emojis-container-box {
     user-select: none;
     position: absolute;
@@ -34,7 +148,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    top: 10px;
+    top: 68px;
     border-radius: 0.25rem;
     left: 50%;
     transform: translateX(-50%);
@@ -42,6 +156,7 @@ body {
     padding: 0px 20px 20px 20px;
     box-shadow: 0 0 20px #090033;
     overflow: hidden;
+    z-index: 0;
     .head {
         height: 50px;
         padding: 0px 20px;
@@ -125,61 +240,6 @@ body {
             float: left;
             overflow-y: scroll;
             scrollbar-width: thin; //only for firefox
-            .emojis {
-                float: left;
-                position: relative;
-                margin: 0.5rem;
-                width: 45px;
-                z-index: 1;
-                img {
-                    width: 45px;
-                    pointer-events: none;
-                    transition: all 0.2s;
-                }
-                &::before {
-                    opacity: 0;
-                    visibility: hidden;
-                    position: absolute;
-                    content: var(--tooltip-content);
-                    color: #eef4ed;
-                    font-size: 0.75rem;
-                    text-align: center;
-                    top: -5px;
-                    width: 50px;
-                    padding: 5px 0px;
-                    background-color: #33415cea;
-                    left: 50%;
-                    transform: translate(-50%, 50%) scale(0.5);
-                    z-index: 1;
-                    border-radius: 0.25rem;
-                    transition: all 0.3s;
-                }
-                &::after {
-                    opacity: 0;
-                    visibility: hidden;
-                    pointer-events: none;
-                    content: "";
-                    position: absolute;
-                    width: 10px;
-                    height: 10px;
-                    background-color: #33415cea;
-                    top: 16px;
-                    left: 50%;
-                    clip-path: polygon(50% 50%, 100% 50%, 50% 100%, 0% 50%);
-                    transform: translate(-50%, 50%) scale(0.5);
-                    z-index: 0;
-                    transition: all 0.3s;
-                }
-                &:hover img {
-                    transform: scale(1.1);
-                }
-                &:hover::before,
-                &:hover::after {
-                    opacity: 1;
-                    visibility: visible;
-                    transform: translate(-50%, 0%) scale(1);
-                }
-            }
         }
         .active {
             visibility: visible;
@@ -189,11 +249,12 @@ body {
         }
     }
 }
+
 .contact-container {
     background-color: #13315c;
     box-shadow: 0 0 20px #090033;
     position: absolute;
-    top: 760px;
+    top: 820px;
     width: 540px;
     height: 60px;
     left: 50%;
