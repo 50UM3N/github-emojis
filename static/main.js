@@ -21,6 +21,8 @@ function setDataToSearchBox(data) {
         ej.appendChild(img)
         emojiBox.appendChild(ej)
         ej.addEventListener('mousedown', e => {
+            const target = ej.cloneNode(true)
+            addToRecent(target, sec[0])
             const text = ej.getAttribute('emoji-name')
             navigator.clipboard.writeText(text)
             ej.style.setProperty('--tooltip-content', '"copied"')
