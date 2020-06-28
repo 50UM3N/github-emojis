@@ -2,27 +2,18 @@
   --tooltip-content: "copy";
 }
 
-body {
-  font-family: "Nunito", sans-serif;
-}
-
-/* width */
 ::-webkit-scrollbar {
   width: 3px;
-  border-radius: 3px;
 }
 
-/* Track */
 ::-webkit-scrollbar-track {
   background: #8da9c4;
 }
 
-/* Handle */
 ::-webkit-scrollbar-thumb {
   background: #154783;
 }
 
-/* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #113c70;
 }
@@ -35,6 +26,7 @@ body {
 }
 
 body {
+  font-family: "Nunito", sans-serif;
   background-color: #001233;
 }
 
@@ -181,7 +173,8 @@ body {
   -webkit-transition: all 0.2s;
   transition: all 0.2s;
   float: left;
-  overflow: auto;
+  overflow-y: scroll;
+  scrollbar-width: thin;
 }
 
 .emojis-container-box .group .subgroup .emojis {
