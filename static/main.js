@@ -2,13 +2,13 @@ var sec, btn, now = 1;;
 
 const input = document.getElementById('emoji-input')
 input.addEventListener('input', e => {
-    deleteBox()
     if (!input.value) { return }
     const value = input.value.replace(/\s/g, '')
     fetch(`/type/${value}`).then(res => { return res.json() }).then(data => setDataToSearchBox(data))
 })
 
 function setDataToSearchBox(data) {
+    deleteBox()
     const box = document.querySelector('.result-box-container')
     const emojiBox = document.createElement('div')
     emojiBox.setAttribute('class', 'result-container')
@@ -35,7 +35,6 @@ function setDataToSearchBox(data) {
 function deleteBox() {
     const box = document.querySelector('.result-container')
     if (box != null) {
-        console.log()
         box.remove()
     }
 }
