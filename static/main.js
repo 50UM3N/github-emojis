@@ -34,7 +34,10 @@ function setDataToSearchBox(data) {
 
 function deleteBox() {
     const box = document.querySelector('.result-container')
-    if (box != null) box.remove()
+    if (box != null) {
+        console.log()
+        box.remove()
+    }
 }
 
 document.addEventListener('mousedown', e => {
@@ -115,17 +118,17 @@ function addToRecent(target, container) {
 }
 
 function clk(e) {
-    remove(now);
+    removeItem(now);
     now = Number(e.slice(1));
-    add(now);
+    addItem(now);
 }
 
-function add(e) {
+function addItem(e) {
     sec[e].classList.add('active')
     btn[e].classList.add('button-active')
 }
 
-function remove(e) {
+function removeItem(e) {
     sec[e].classList.remove('active')
     btn[e].classList.remove('button-active')
 }
