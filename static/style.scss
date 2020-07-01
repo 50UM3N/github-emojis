@@ -5,6 +5,7 @@
 ::-webkit-scrollbar {
     width: 3px;
 }
+
 ::-webkit-scrollbar-track {
     background: #8da9c4;
 }
@@ -27,17 +28,20 @@ body {
     font-family: "Nunito", sans-serif;
     background-color: #001233;
 }
+
 .emojis {
     float: left;
     position: relative;
     margin: 0.5rem;
     width: 45px;
     z-index: 1;
+
     img {
         width: 45px;
         pointer-events: none;
         transition: all 0.2s;
     }
+
     &::before {
         opacity: 0;
         visibility: hidden;
@@ -56,6 +60,7 @@ body {
         border-radius: 0.25rem;
         transition: all 0.3s;
     }
+
     &::after {
         opacity: 0;
         visibility: hidden;
@@ -72,9 +77,11 @@ body {
         z-index: 0;
         transition: all 0.3s;
     }
+
     &:hover img {
         transform: scale(1.1);
     }
+
     &:hover::before,
     &:hover::after {
         opacity: 1;
@@ -82,6 +89,7 @@ body {
         transform: translate(-50%, 0%) scale(1);
     }
 }
+
 .emoji-search-box-container {
     position: absolute;
     top: 10px;
@@ -89,6 +97,7 @@ body {
     transform: translateX(-50%);
     box-shadow: 0 0 20px #090033;
     border-radius: 0.25rem;
+
     input {
         height: 38px;
         font-family: "Nunito", sans-serif;
@@ -100,14 +109,17 @@ body {
         background-color: #13315c;
         outline: none;
         color: #eef4ed;
+
         &:focus {
             border: 1.5px solid #0073ff;
         }
     }
+
     ::placeholder {
         color: rgb(184, 184, 184);
     }
 }
+
 .result-box-container {
     opacity: 0;
     pointer-events: none;
@@ -126,21 +138,25 @@ body {
     padding: 5px 45px;
     box-shadow: 0 0 20px #090033;
     transition: all 0.3s ease;
+
     .result-container {
         .emojis {
             width: 40px;
             height: 40px;
+
             img {
                 width: 40px;
             }
         }
     }
 }
+
 .result-box-container-visible {
     opacity: 1;
     pointer-events: all;
     visibility: visible;
 }
+
 .emojis-container-box {
     user-select: none;
     position: absolute;
@@ -157,6 +173,7 @@ body {
     box-shadow: 0 0 20px #090033;
     overflow: hidden;
     z-index: 0;
+
     .head {
         height: 50px;
         padding: 0px 20px;
@@ -166,21 +183,25 @@ body {
         text-align: center;
         width: 108%;
         background-color: #0b2545;
+
         h2 {
             font-size: 1.25rem;
             font-weight: 500;
             color: #eef4ed;
         }
     }
+
     ul {
         width: 100%;
         display: flex;
         justify-content: space-evenly;
         align-items: center;
         list-style: none;
+
         // border-bottom: 1px solid #d8d8d8;
         li {
             flex: 1;
+
             .show-emoji {
                 position: relative;
                 background-color: transparent;
@@ -189,10 +210,12 @@ body {
                 width: 100%;
                 height: 50px;
                 z-index: 1;
+
                 svg {
                     fill: #2877d6;
                     width: 25px;
                 }
+
                 &::before {
                     position: absolute;
                     content: "";
@@ -204,22 +227,26 @@ body {
                     background-color: #fca311;
                     transition: all 0.1s linear;
                 }
+
                 &:hover::before {
                     width: 100%;
                     left: 0%;
                 }
             }
+
             .button-active {
                 svg {
                     fill: #fca311;
                 }
             }
+
             .button-active::before {
                 width: 100%;
                 left: 0%;
             }
         }
     }
+
     .group {
         margin-top: 0.75rem;
         position: relative;
@@ -228,6 +255,7 @@ body {
         display: flex;
         justify-content: center;
         align-items: center;
+
         .subgroup {
             visibility: hidden;
             opacity: 0;
@@ -241,6 +269,7 @@ body {
             overflow-y: scroll;
             scrollbar-width: thin; //only for firefox
         }
+
         .active {
             visibility: visible;
             opacity: 1;
@@ -265,6 +294,7 @@ body {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+
     svg {
         width: 35px;
         fill: #2877d6;
@@ -274,6 +304,7 @@ body {
             fill: #fca311;
         }
     }
+
     a {
         position: relative;
         display: flex;
@@ -281,6 +312,7 @@ body {
         align-items: center;
         width: 40px;
         height: 40px;
+
         &::before {
             opacity: 0;
             visibility: hidden;
@@ -300,6 +332,7 @@ body {
             background-color: #33415c;
             transition: all 0.3s;
         }
+
         &::after {
             opacity: 0;
             visibility: hidden;
@@ -317,6 +350,7 @@ body {
             z-index: 0;
             transition: all 0.3s;
         }
+
         &:hover::before,
         &:hover::after {
             opacity: 1;
